@@ -1,2 +1,2 @@
-# Home-Assistant-Nina
-Nina's company Home Assistant called Pokemon Pokedex
+# Home-Assignment-Nina
+Nina's company Home Assignment called Pokemon Pokedex
