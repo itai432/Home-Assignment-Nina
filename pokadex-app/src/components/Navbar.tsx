@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { mdiMagnify } from '@mdi/js';
-import Icon from '@mdi/react';
+// import { mdiMagnify } from '@mdi/js';
+// import Icon from '@mdi/react';
 
 const Navbar: React.FC = () => {
-  const [searchTerm, setSearchTerm] = useState('');
+  // const [searchTerm, setSearchTerm] = useState('');
 
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault();
-  };
+  // const handleSearch = (e: React.FormEvent) => {
+  //   e.preventDefault();
+  // };
 
   return (
     <nav className="bg-white bg-opacity-25 shadow-lg">
@@ -18,7 +18,7 @@ const Navbar: React.FC = () => {
             <span className="text-2xl font-bold text-gray-800">PokéDex</span>
           </Link>
           <div className="flex justify-center flex-grow ml-5">
-            <form onSubmit={handleSearch} className="flex items-center">
+            {/* <form onSubmit={handleSearch} className="flex items-center">
               <input
                 type="search"
                 placeholder="Search Pokémon by name or ID"
@@ -32,7 +32,7 @@ const Navbar: React.FC = () => {
               >
                 <Icon path={mdiMagnify} size={1} />
               </button>
-            </form>
+            </form> */}
           </div>
           <div className="py-2 invisible">
             <span className="text-2xl font-bold text-transparent">PokéDex</span>
