@@ -29,6 +29,7 @@ export interface BackgroundImageProps {
 }
 
 export interface PokemonType {
+  name: any;
   type: { name: string };
 }
 

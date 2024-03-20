@@ -1,36 +1,38 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Link, useParams } from 'react-router-dom';
+import { useQuery } from 'react-query';
 import axios from 'axios';
 import Loader from '../components/Loader';
 import { Globals } from '../services/GlobalServices/globals';
 import { PokemonDetailsProps } from '../Models/interface';
 
+const fetchPokemonDetails = async (id: string) => {
+  const response = await axios.get(`${Globals.VITE_NEXT_PAGE}${id}`);
+  return response.data;
+};
+
 export const PokemonDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const [pokemonDetails, setPokemonDetails] =
-    useState<PokemonDetailsProps | null>(null);
-  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchPokemonDetails = async () => {
-      try {
-        const response = await axios.get(`${Globals.VITE_NEXT_PAGE}${id}`);
-        setPokemonDetails(response.data);
-      } catch (error) {
-        console.error('There was an error fetching the details:', error);
-      } finally {
-        setTimeout(() => {
-          setLoading(false);
-        }, 500);
-      }
-    };
+  const {
+    data: pokemonDetails,
+    isError,
+    isLoading,
+    error,
+  } = useQuery<PokemonDetailsProps, Error>(
+    ['pokemonDetails', id],
+    () => fetchPokemonDetails(id!),
+    { enabled: !!id }
+  );
 
-    fetchPokemonDetails();
-  }, [id]);
+  if (isLoading) return <Loader />;
 
-  if (loading) return <Loader />;
-  if (!pokemonDetails)
+  if (isError) {
+    console.error('There was an error fetching the details:', error);
     return <div className="flex justify-center">Failed to fetch data...</div>;
+  }
+
+  if (!pokemonDetails) return null;
 
   const officialArtwork =
     pokemonDetails.sprites.other?.['official-artwork'].front_default ||
@@ -48,10 +50,8 @@ export const PokemonDetails: React.FC = () => {
           className="mx-auto my-4 w-60 h-60 object-contain"
         />
         <p className="text-lg mb-1">Pokemon ID: {pokemonDetails.id}</p>
-        <p className="text-lg mb-1">
-          Height: {pokemonDetails.height / 10} m
-        </p>{' '}
-        <p className="text-lg mb-3">Weight: {pokemonDetails.weight / 10} kg</p>{' '}
+        <p className="text-lg mb-1">Height: {pokemonDetails.height / 10} m</p>
+        <p className="text-lg mb-3">Weight: {pokemonDetails.weight / 10} kg</p>
         <div className="mb-4">
           Types:
           <ul className="flex justify-center">

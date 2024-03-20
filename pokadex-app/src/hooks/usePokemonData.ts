@@ -10,6 +10,7 @@ export const usePokemonData = () => {
   const fetchPokemons = useCallback(async () => {
     try {
       const response = await axios.get(nextUrl);
+      console.log(response);
       const pokemonData: Pokemon[] = await Promise.all(
         response.data.results.map(
           async (result: { name: string; url: string }) => {
@@ -31,5 +32,6 @@ export const usePokemonData = () => {
       console.error('There was an error fetching the Pokemon data:', error);
     }
   }, [nextUrl]);
+  
   return { pokemons, fetchPokemons };
 };
