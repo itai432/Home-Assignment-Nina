@@ -2,43 +2,19 @@ import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
 import Loader from '../components/Loader';
+import { Globals } from '../services/GlobalServices/globals';
+import { PokemonDetailsProps } from '../Models/interface';
 
-interface PokemonDetails {
-  name: string;
-  id: number;
-  height: number;
-  weight: number;
-  types: {
-    slot: number;
-    type: {
-      name: string;
-    };
-  }[];
-  sprites: {
-    front_default: string;
-    back_default: string;
-    front_shiny?: string;
-    back_shiny?: string;
-    other?: {
-      'official-artwork': {
-        front_default: string;
-      };
-    };
-  };
-}
 export const PokemonDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const [pokemonDetails, setPokemonDetails] = useState<PokemonDetails | null>(
-    null
-  );
+  const [pokemonDetails, setPokemonDetails] =
+    useState<PokemonDetailsProps | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchPokemonDetails = async () => {
       try {
-        const response = await axios.get(
-          `https://pokeapi.co/api/v2/pokemon/${id}`
-        );
+        const response = await axios.get(`${Globals.VITE_NEXT_PAGE}${id}`);
         setPokemonDetails(response.data);
       } catch (error) {
         console.error('There was an error fetching the details:', error);
@@ -62,7 +38,7 @@ export const PokemonDetails: React.FC = () => {
 
   return (
     <div className="flex justify-center items-center py-8 px-8">
-      <div className="relative bg-white bg-opacity-80 shadow-2xl rounded-lg p-8 w-full max-w-md text-center mx-auto">
+      <div className="relative bg-white bg-opacity-90 shadow-2xl rounded-lg p-8 w-full max-w-md text-center mx-auto">
         <h1 className="text-4xl font-extrabold mb-4 capitalize">
           {pokemonDetails.name}
         </h1>
