@@ -73,7 +73,7 @@ export const Home: React.FC = () => {
         className="bg-purple-200 outline-none text-xs placeholder-gray-500 px-2 py-3 rounded-full mb-4 w-80 text-center"
         onChange={(e) => setSearchTerm(e.target.value)}
       />
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3  xl:grid-cols-6 gap-2">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5  xl:grid-cols-7 gap-2">
         {filteredPokemons.map((pokemon) => {
           const imageUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png`;
           return (
