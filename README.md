@@ -7,5 +7,4 @@ After opening the terminal, execute these commands in order:
 
 
 * \cd .\pokadex-app
-
-*npm run dev
+*   npm run dev
